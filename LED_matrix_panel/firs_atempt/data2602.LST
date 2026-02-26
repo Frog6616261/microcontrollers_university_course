@@ -1,0 +1,179 @@
+C51 COMPILER V9.51   DATA2602                                                              02/26/2026 22:00:36 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE DATA2602
+OBJECT MODULE PLACED IN data2602.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe data2602.c DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------
+   2          // Includes
+   3          //-----------------------------------------------------------------------------
+   4          #include <c8051F360.h> 
+   5          #include <compiler_defs.h>              
+   6          #include <alpabet.h>   
+   7          
+   8          //-----------------------------------------------------------------------------
+   9          // Global CONSTANTS
+  10          //-----------------------------------------------------------------------------
+  11          
+  12          #define SYSCLK 3062500                 // Approximate SYSCLK frequency in Hz
+  13          
+  14          sbit CLK = P2^7;
+  15          sbit CLR = P1^7;
+  16          sbit TTT = P2^0;
+  17          
+  18          struct WordPart {
+  19              unsigned char* data_;    
+  20              int size;      
+  21          };
+  22          
+  23          struct WordPart word_parts[] = {
+  24                  {font_A, sizeof(font_A) / sizeof(font_A[0])}, 
+  25              {font_M, sizeof(font_M) / sizeof(font_M[0])},  
+  26                  {font_A, sizeof(font_A) / sizeof(font_A[0])},  
+  27                  {font_M, sizeof(font_M) / sizeof(font_M[0])},    
+  28          };
+  29          
+  30          int cursor = 0;
+  31          int parts_count = 4;
+  32          int total_length = 0;
+  33           
+  34          //-----------------------------------------------------------------------------
+  35          // Function PROTOTYPES
+  36          //-----------------------------------------------------------------------------
+  37          
+  38          void PORT_Init (void);
+  39          void Init_Device(void); 
+  40          int get_word_value(int index);
+  41          int get_word_length(void);
+  42          
+  43          
+  44          //-----------------------------------------------------------------------------
+  45          // MAIN Routine
+  46          //-----------------------------------------------------------------------------
+  47          void main (void) 
+  48          {
+  49   1         PCA0MD &= ~0x40;                    // WDTE = 0 (clear watchdog timer
+  50   1                                             // enable)
+  51   1         PORT_Init ();
+  52   1         Init_Device();
+  53   1      
+  54   1         P2 = 0x00;
+  55   1         CLR = 0;
+C51 COMPILER V9.51   DATA2602                                                              02/26/2026 22:00:36 PAGE 2   
+
+  56   1         cursor = 0;
+  57   1      
+  58   1         total_length = get_word_length();
+  59   1      
+  60   1         while (1) {
+  61   2         }                         // Spin forever
+  62   1      }
+  63          
+  64          //-----------------------------------------------------------------------------
+  65          // PORT_Init
+  66          //-----------------------------------------------------------------------------
+  67          //
+  68          // Return Value : None
+  69          // Parameters   : None
+  70          //
+  71          // Configure the Crossbar and GPIO ports
+  72          //
+  73          void PORT_Init (void)
+  74          {
+  75   1         unsigned char SFRPAGE_save = SFRPAGE; // Save the current SFRPAGE
+  76   1      
+  77   1         SFRPAGE = CONFIG_PAGE;              // Switch to the necessary SFRPAGE
+  78   1      
+  79   1         XBR1    = 0x40;                     // Enable crossbar and weak pull-ups
+  80   1         
+  81   1         SFRPAGE = SFRPAGE_save;             // Restore the SFRPAGE
+  82   1      }
+  83          
+  84          void Timer0_ISR(void) interrupt 1 
+  85          {
+  86   1         CLK = 0;
+  87   1         CLK = 1;
+  88   1      
+  89   1         if(cursor < total_length){
+  90   2                 P2 = ~get_word_value(cursor);
+  91   2                 cursor++;
+  92   2         } else {
+  93   2                 if (cursor < 48) {
+  94   3                    cursor++; 
+  95   3                 } else {
+  96   3                 cursor = 0; 
+  97   3                 }
+  98   2         }
+  99   1      
+ 100   1         TL0       = 0xdd; 
+ 101   1         TH0       = 0xff; 
+ 102   1      }
+ 103          
+ 104          void Timer_Init()
+ 105          {
+ 106   1          TCON      = 0x10;
+ 107   1          TMOD      = 0x01;
+ 108   1          CKCON     = 0x02;
+ 109   1          TL0       = 0xff; 
+ 110   1          TH0       = 0xf6; 
+ 111   1      }
+ 112          
+ 113          void Interrupts_Init()
+ 114          {
+ 115   1          SFRPAGE   = CONFIG_PAGE;
+ 116   1          IE        = 0x82;
+ 117   1      }
+C51 COMPILER V9.51   DATA2602                                                              02/26/2026 22:00:36 PAGE 3   
+
+ 118          
+ 119          
+ 120          // Initialization function for device,
+ 121          // Call Init_Device() from your main program
+ 122          void Init_Device(void)
+ 123          {
+ 124   1          Timer_Init();
+ 125   1          Interrupts_Init();
+ 126   1      }
+ 127          
+ 128          int get_word_value(int index) {
+ 129   1          int current_index = index;
+ 130   1              int part = 0;
+ 131   1          
+ 132   1          for(part = 0; part < parts_count; part++) {
+ 133   2              if(current_index < word_parts[part].size) {
+ 134   3                  return word_parts[part].data_[current_index];
+ 135   3              }
+ 136   2              current_index -= word_parts[part].size;
+ 137   2          }
+ 138   1          return 0;
+ 139   1      }
+ 140          
+ 141          int get_word_length() {
+ 142   1          int total = 0;
+ 143   1              int part = 0;
+ 144   1          for(part = 0; part < parts_count; part++) {
+ 145   2              total += word_parts[part].size;
+ 146   2          }
+ 147   1          return total;
+ 148   1      }
+ 149          
+ 150          //-----------------------------------------------------------------------------
+ 151          // End Of File
+ 152          //-----------------------------------------------------------------------------
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    359    ----
+   CONSTANT SIZE    =    221    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     26       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
