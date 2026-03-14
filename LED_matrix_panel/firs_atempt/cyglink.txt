@@ -1,1 +1,0 @@
-"C:\Designs_Silab\WIU\firs_atempt\data2602.obj"  TO "C:\Designs_Silab\WIU\firs_atempt\first_atempt" RS(256) PL(68) PW(78) 
