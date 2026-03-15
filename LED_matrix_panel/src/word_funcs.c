@@ -1,5 +1,5 @@
-#include "../include/word_funcs.h"
-#include "../include/word_part.h"
+#include "word_funcs.h"
+#include "word_part.h"
 
 
 int get_word_value(int index, int word_size, int parts_count, struct word_part* word_parts) {
@@ -21,6 +21,7 @@ int get_word_value(int index, int word_size, int parts_count, struct word_part* 
 
     return 0;
 }
+
 
 int get_word_length(int parts_count, struct word_part* word_parts) {
     int total = 0;

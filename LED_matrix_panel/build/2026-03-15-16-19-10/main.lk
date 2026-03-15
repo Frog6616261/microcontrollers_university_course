@@ -1,0 +1,22 @@
+-muwx
+-i build/2026-03-15-16-19-10/main.ihx
+-M
+-b HOME = 0x0000
+-b XSEG = 0x0001
+-b PSEG = 0x0001
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k /usr/bin/../share/sdcc/lib/small
+-k /usr/share/sdcc/lib/small
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+build/2026-03-15-16-19-10/obj/main.rel
+build/2026-03-15-16-19-10/obj/src/word_funcs.rel
+build/2026-03-15-16-19-10/obj/src/word_part.rel
+build/2026-03-15-16-19-10/obj/drivers/timer/timer.rel
+build/2026-03-15-16-19-10/obj/drivers/uart/uart.rel
+
+-e

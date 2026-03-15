@@ -1,5 +1,5 @@
-#include "../../mcu/C8051F360.h"
-#include "../../mcu/compiler.h"
+#include "C8051F360.h"
+#include "compiler.h"
 
 #ifndef TIMER_H
 #define TIMER_H

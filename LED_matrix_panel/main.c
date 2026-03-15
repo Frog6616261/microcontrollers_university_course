@@ -1,12 +1,12 @@
-#include "mcu/C8051F360.h"
-#include "mcu/compiler.h"
+#include "C8051F360.h"
+#include "compiler.h"
 
-#include "include/alpabet.h"   
-#include "include/word_funcs.h"   
-#include "include/word_part.h" 
+#include "alpabet.h"   
+#include "word_funcs.h"   
+#include "word_part.h" 
 
-#include "drivers/timer/timer.h"  
-#include "drivers/uart/uart.h"  
+#include "timer.h"  
+#include "uart.h"  
 
 
 #define SYSCLK 3062500                 // Approximate SYSCLK frequency in Hz
@@ -20,7 +20,7 @@
 
 
 
-struct word_part word_parts[] = {  
+const struct word_part word_parts[] = {  
 	{font_M, sizeof(font_M) / sizeof(font_M[0])}, 
 	{font_I, sizeof(font_I) / sizeof(font_I[0])},
 	{font_C, sizeof(font_C) / sizeof(font_C[0])},

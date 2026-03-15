@@ -1,4 +1,5 @@
-#include "uart.h"
+#include "C8051F360.h"
+#include "compiler.h"
 
 
 void uart_init(void){
@@ -19,18 +20,18 @@ void uart_init(void){
 
     TR1 = 1;           // запустить Timer1
     TI0 = 1;           // передатчик готов
-};
+}
 
 void uart_send_char(char c){
     while (TI0 == 0);
     TI0 = 0;
     SBUF0 = c;
-};
+}
 
 char uart_read_char(void){
     while (RI0 == 0);
     RI0 = 0;
     return SBUF0;
-};
+}
 
 

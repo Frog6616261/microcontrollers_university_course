@@ -1,2 +1,2 @@
-#include "../include/word_part.h"
+#include "word_part.h"
 

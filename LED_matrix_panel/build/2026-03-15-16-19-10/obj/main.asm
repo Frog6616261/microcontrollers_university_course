@@ -41,9 +41,6 @@
 	.globl _Timers_Init
 	.globl _get_word_length
 	.globl _get_word_value
-	.globl _TTT
-	.globl _CLR
-	.globl _CLK
 	.globl _SPIF
 	.globl _WCOL
 	.globl _MODF
@@ -617,12 +614,6 @@ _RXOVRN	=	0x00fc
 _MODF	=	0x00fd
 _WCOL	=	0x00fe
 _SPIF	=	0x00ff
-_CLK::
-	.ds 1
-_CLR::
-	.ds 1
-_TTT::
-	.ds 1
 ;--------------------------------------------------------
 ; overlayable register banks
 ;--------------------------------------------------------
@@ -715,7 +706,7 @@ __interrupt_vect:
 	.globl __mcs51_genXINIT
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
-;	main.c:20: struct word_part word_parts[] = {  
+;	main.c:23: struct word_part word_parts[] = {  
 	mov	(_word_parts + 0),#_font_M
 	mov	(_word_parts + 1),#(_font_M >> 8)
 	mov	(_word_parts + 2),#0x80
@@ -761,47 +752,27 @@ __interrupt_vect:
 	mov	((_word_parts + 0x0028) + 2),#0x80
 	mov	((_word_parts + 0x002b) + 0),#0x03
 	mov	((_word_parts + 0x002b) + 1),#0x00
-;	main.c:32: int g_delta_pos = 0;
+;	main.c:35: int g_delta_pos = 0;
 	clr	a
 	mov	_g_delta_pos,a
 	mov	(_g_delta_pos + 1),a
-;	main.c:33: int g_cursor = 0;
+;	main.c:36: int g_cursor = 0;
 	mov	_g_cursor,a
 	mov	(_g_cursor + 1),a
-;	main.c:34: int g_parts_count = 9;
+;	main.c:37: int g_parts_count = 9;
 	mov	_g_parts_count,#0x09
 ;	1-genFromRTrack replaced	mov	(_g_parts_count + 1),#0x00
 	mov	(_g_parts_count + 1),a
-;	main.c:35: unsigned int g_cur_time_for_word = 0;
+;	main.c:38: unsigned int g_cur_time_for_word = 0;
 	mov	_g_cur_time_for_word,a
 	mov	(_g_cur_time_for_word + 1),a
-;	main.c:36: unsigned int g_delta_time_for_word = 100;
+;	main.c:39: unsigned int g_delta_time_for_word = 100;
 	mov	_g_delta_time_for_word,#0x64
 ;	1-genFromRTrack replaced	mov	(_g_delta_time_for_word + 1),#0x00
 	mov	(_g_delta_time_for_word + 1),a
-;	main.c:37: int g_word_size = 0;
+;	main.c:40: int g_word_size = 0;
 	mov	_g_word_size,a
 	mov	(_g_word_size + 1),a
-;	main.c:14: __sbit CLK = P2^7;
-	mov	a,#0x07
-	xrl	a,_P2
-;	assignBit
-	mov	r7,a
-	add	a,#0xff
-	mov	_CLK,c
-;	main.c:15: __sbit CLR = P1^7;
-	mov	a,#0x07
-	xrl	a,_P1
-;	assignBit
-	mov	r7,a
-	add	a,#0xff
-	mov	_CLR,c
-;	main.c:16: __sbit TTT = P2^0;
-;	assignBit
-	mov	a,_P2
-	mov	r7,a
-	add	a,#0xff
-	mov	_TTT,c
 	.area GSFINAL (CODE)
 	ljmp	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -817,13 +788,13 @@ __sdcc_program_startup:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'Timers_Init'
+;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	drivers/timer/timer.h:6: void Timers_Init()
+;	main.c:48: void main (void) 
 ;	-----------------------------------------
-;	 function Timers_Init
+;	 function main
 ;	-----------------------------------------
-_Timers_Init:
+_main:
 	ar7 = 0x07
 	ar6 = 0x06
 	ar5 = 0x05
@@ -832,54 +803,22 @@ _Timers_Init:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	drivers/timer/timer.h:8: TCON      = 0x50;
-	mov	_TCON,#0x50
-;	drivers/timer/timer.h:9: TMOD      = 0x11;
-	mov	_TMOD,#0x11
-;	drivers/timer/timer.h:10: CKCON     = 0x02;
-	mov	_CKCON,#0x02
-;	drivers/timer/timer.h:12: TL0       = 0xff; 
-	mov	_TL0,#0xff
-;	drivers/timer/timer.h:13: TH0       = 0xf6; 
-	mov	_TH0,#0xf6
-;	drivers/timer/timer.h:14: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'Interrupts_Init'
-;------------------------------------------------------------
-;	drivers/timer/timer.h:17: void Interrupts_Init()
-;	-----------------------------------------
-;	 function Interrupts_Init
-;	-----------------------------------------
-_Interrupts_Init:
-;	drivers/timer/timer.h:19: IE        = 0x8A;
-	mov	_IE,#0x8a
-;	drivers/timer/timer.h:20: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
-;------------------------------------------------------------
-;	main.c:45: int main (void) 
-;	-----------------------------------------
-;	 function main
-;	-----------------------------------------
-_main:
-;	main.c:49: PCA0MD &= ~0x40;                    // WDTE = 0 (clear watchdog timer
+;	main.c:52: PCA0MD &= ~0x40;                    // WDTE = 0 (clear watchdog timer
 	anl	_PCA0MD,#0xbf
-;	main.c:51: PORT_Init ();
+;	main.c:54: PORT_Init ();
 	lcall	_PORT_Init
-;	main.c:52: Init_Device();
+;	main.c:55: Init_Device();
 	lcall	_Init_Device
-;	main.c:54: P2 = 0x00;
+;	main.c:57: P2 = 0x00;
 	mov	_P2,#0x00
-;	main.c:55: CLR = 0;
+;	main.c:58: CLR = 0;
 ;	assignBit
-	clr	_CLR
-;	main.c:56: g_cursor = 0;
+	clr	_P1_7
+;	main.c:59: g_cursor = 0;
 	clr	a
 	mov	_g_cursor,a
 	mov	(_g_cursor + 1),a
-;	main.c:58: g_word_size = get_word_length(g_parts_count, word_parts);
+;	main.c:61: g_word_size = get_word_length(g_parts_count, word_parts);
 	mov	_get_word_length_PARM_2,#_word_parts
 ;	1-genFromRTrack replaced	mov	(_get_word_length_PARM_2 + 1),#0x00
 	mov	(_get_word_length_PARM_2 + 1),a
@@ -889,7 +828,7 @@ _main:
 	lcall	_get_word_length
 	mov	_g_word_size,dpl
 	mov	(_g_word_size + 1),dph
-;	main.c:60: if (g_word_size < 47) {
+;	main.c:63: if (g_word_size < 47) {
 	clr	c
 	mov	a,_g_word_size
 	subb	a,#0x2f
@@ -897,13 +836,12 @@ _main:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00104$
-;	main.c:61: g_word_size = 47; 
+;	main.c:64: g_word_size = 47; 
 	mov	_g_word_size,#0x2f
 	mov	(_g_word_size + 1),#0x00
-;	main.c:64: while (1) {
+;	main.c:67: while (1) {
 00104$:
-;	main.c:67: return 0;
-;	main.c:68: }
+;	main.c:70: }
 	sjmp	00104$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'PORT_Init'
@@ -911,30 +849,30 @@ _main:
 ;SFRPAGE_save              Allocated to registers r7 
 ;SFRPAGE_for_XBR1          Allocated to registers 
 ;------------------------------------------------------------
-;	main.c:71: void PORT_Init (void)
+;	main.c:73: void PORT_Init (void)
 ;	-----------------------------------------
 ;	 function PORT_Init
 ;	-----------------------------------------
 _PORT_Init:
-;	main.c:73: unsigned char SFRPAGE_save = SFRPAGE; // Save the current SFRPAGE
+;	main.c:75: unsigned char SFRPAGE_save = SFRPAGE; // Save the current SFRPAGE
 	mov	r7,_SFRPAGE
-;	main.c:77: SFRPAGE = SFRPAGE_for_XBR1;              // Switch to the necessary SFRPAGE
+;	main.c:79: SFRPAGE = SFRPAGE_for_XBR1;              // Switch to the necessary SFRPAGE
 	mov	_SFRPAGE,#0x0f
-;	main.c:79: XBR1    = 0x40;                     // Enable crossbar and weak pull-ups
+;	main.c:81: XBR1    = 0x40;                     // Enable crossbar and weak pull-ups
 	mov	_XBR1,#0x40
-;	main.c:81: SFRPAGE = SFRPAGE_save;             // Restore the SFRPAGE
+;	main.c:83: SFRPAGE = SFRPAGE_save;             // Restore the SFRPAGE
 	mov	_SFRPAGE,r7
-;	main.c:82: }
+;	main.c:84: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer_ISR'
 ;------------------------------------------------------------
-;	main.c:85: void Timer_ISR(void) //interrupt 1
+;	main.c:87: void Timer_ISR(void) //interrupt 1
 ;	-----------------------------------------
 ;	 function Timer_ISR
 ;	-----------------------------------------
 _Timer_ISR:
-;	main.c:87: P2 = ~(get_word_value((g_cursor-g_delta_pos), g_word_size, g_parts_count, word_parts));
+;	main.c:89: P2 = ~(get_word_value((g_cursor-g_delta_pos), g_word_size, g_parts_count, word_parts));
 	mov	a,_g_cursor
 	clr	c
 	subb	a,_g_delta_pos
@@ -954,13 +892,13 @@ _Timer_ISR:
 	mov	a,r6
 	cpl	a
 	mov	_P2,a
-;	main.c:90: CLK = 0;
+;	main.c:92: CLK = 0;
 ;	assignBit
-	clr	_CLK
-;	main.c:91: CLK = 1;
+	clr	_P2_7
+;	main.c:93: CLK = 1;
 ;	assignBit
-	setb	_CLK
-;	main.c:93: if (g_cursor < 48) {
+	setb	_P2_7
+;	main.c:95: if (g_cursor < 48) {
 	clr	c
 	mov	a,_g_cursor
 	subb	a,#0x30
@@ -968,72 +906,72 @@ _Timer_ISR:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00102$
-;	main.c:94: g_cursor++; 
+;	main.c:96: g_cursor++; 
 	inc	_g_cursor
 	clr	a
 	cjne	a,_g_cursor,00103$
 	inc	(_g_cursor + 1)
 	sjmp	00103$
 00102$:
-;	main.c:96: g_cursor = 0; 
+;	main.c:98: g_cursor = 0; 
 	clr	a
 	mov	_g_cursor,a
 	mov	(_g_cursor + 1),a
 00103$:
-;	main.c:100: if (g_cur_time_for_word == g_delta_time_for_word)
+;	main.c:102: if (g_cur_time_for_word == g_delta_time_for_word)
 	mov	a,_g_delta_time_for_word
 	cjne	a,_g_cur_time_for_word,00105$
 	mov	a,(_g_delta_time_for_word + 1)
 	cjne	a,(_g_cur_time_for_word + 1),00105$
-;	main.c:101: g_cur_time_for_word = 0;
+;	main.c:103: g_cur_time_for_word = 0;
 	clr	a
 	mov	_g_cur_time_for_word,a
 	mov	(_g_cur_time_for_word + 1),a
 00105$:
-;	main.c:102: g_delta_pos++;
+;	main.c:104: g_delta_pos++;
 	inc	_g_delta_pos
 	clr	a
 	cjne	a,_g_delta_pos,00126$
 	inc	(_g_delta_pos + 1)
 00126$:
-;	main.c:104: if (g_delta_pos == g_word_size){
+;	main.c:106: if (g_delta_pos == g_word_size){
 	mov	a,_g_word_size
 	cjne	a,_g_delta_pos,00107$
 	mov	a,(_g_word_size + 1)
 	cjne	a,(_g_delta_pos + 1),00107$
-;	main.c:105: g_delta_pos = 0;
+;	main.c:107: g_delta_pos = 0;
 	clr	a
 	mov	_g_delta_pos,a
 	mov	(_g_delta_pos + 1),a
 00107$:
-;	main.c:108: TL1       = 0x00; 
+;	main.c:110: TL1       = 0x00; 
 	mov	_TL1,#0x00
-;	main.c:109: TH1       = 0xC0;
+;	main.c:111: TH1       = 0xC0;
 	mov	_TH1,#0xc0
-;	main.c:111: g_cur_time_for_word++;
+;	main.c:113: g_cur_time_for_word++;
 	inc	_g_cur_time_for_word
 	clr	a
 	cjne	a,_g_cur_time_for_word,00129$
 	inc	(_g_cur_time_for_word + 1)
 00129$:
-;	main.c:113: TL0       = 0xee; 
+;	main.c:115: TL0       = 0xee; 
 	mov	_TL0,#0xee
-;	main.c:114: TH0       = 0xff; 
+;	main.c:116: TH0       = 0xff; 
 	mov	_TH0,#0xff
-;	main.c:115: }
+;	main.c:117: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Init_Device'
 ;------------------------------------------------------------
-;	main.c:120: void Init_Device(void)
+;	main.c:122: void Init_Device(void)
 ;	-----------------------------------------
 ;	 function Init_Device
 ;	-----------------------------------------
 _Init_Device:
-;	main.c:122: Timers_Init();
+;	main.c:124: Timers_Init();
 	lcall	_Timers_Init
-;	main.c:123: Interrupts_Init();     
-;	main.c:124: }
+;	main.c:125: Interrupts_Init();     
+;	main.c:126: }
 	ljmp	_Interrupts_Init
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
