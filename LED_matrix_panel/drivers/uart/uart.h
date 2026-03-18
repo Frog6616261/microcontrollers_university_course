@@ -1,8 +1,8 @@
 #include "C8051F360.h"
 #include "compiler.h"
 
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef UART_H
+#define UART_H
 
 void uart_init(void);
 void uart_send_char(char c);
