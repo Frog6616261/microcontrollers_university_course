@@ -1,0 +1,371 @@
+C51 COMPILER V9.59.0.0   C8051F360                                                         03/18/2026 20:25:07 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE C8051F360
+OBJECT MODULE PLACED IN C8051F360.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe C8051F360.h DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------
+   2          // C8051F360.h
+   3          //-----------------------------------------------------------------------------
+   4          // Copyright 2006 Silicon Laboratories, Inc.
+   5          // http://www.silabs.com
+   6          //
+   7          // Program Description:
+   8          //
+   9          // Register/bit definitions for the C8051F36x/F37x product family.
+  10          //
+  11          //
+  12          // FID:
+  13          // Target:         C8051F360, F361, F362, F363, F364, F365, F366, F367, F368
+  14          //                 C8051F370, F371, F372, F373
+  15          // Tool chain:     Keil
+  16          // Command Line:   None
+  17          //
+  18          //
+  19          // Release 1.0
+  20          //    -Initial Release (TP)
+  21          //    -29 MAR 2006
+  22          //
+  23          
+  24          //-----------------------------------------------------------------------------
+  25          // Header File Preprocessor Directive
+  26          //-----------------------------------------------------------------------------
+  27          
+  28          #ifndef C8051F360_H
+  29          #define C8051F360_H
+  30          
+  31          //-----------------------------------------------------------------------------
+  32          // Byte Registers
+  33          //-----------------------------------------------------------------------------
+  34          
+  35          sfr P0              = 0x80;            // Port 0 latch
+  36          sfr SP              = 0x81;            // Stack pointer
+  37          sfr DPL             = 0x82;            // Data pointer low
+  38          sfr DPH             = 0x83;            // Data pointer high
+  39          sfr CCH0CN          = 0x84;            // Cache control
+  40          sfr SFRNEXT         = 0x85;            // SFR stack next page
+  41          sfr SFRLAST         = 0x86;            // SFR stack last page
+  42          sfr PCON            = 0x87;            // Power control
+  43          sfr TCON            = 0x88;            // Timer/counter control
+  44          sfr TMOD            = 0x89;            // Timer/counter mode
+  45          sfr TL0             = 0x8A;            // Timer/counter 0 low
+  46          sfr TL1             = 0x8B;            // Timer/counter 1 low
+  47          sfr TH0             = 0x8C;            // Timer/counter 0 high
+  48          sfr TH1             = 0x8D;            // Timer/counter 1 high
+  49          sfr CKCON           = 0x8E;            // Clock control
+  50          sfr PSCTL           = 0x8F;            // Program store R/W control
+  51          sfr CLKSEL          = 0x8F;            // Clock select
+  52          sfr P1              = 0x90;            // Port 1 latch
+  53          sfr TMR3CN          = 0x91;            // Timer/counter 3 control
+  54          sfr TMR3RLL         = 0x92;            // Timer/counter 3 reload low
+  55          sfr TMR3RLH         = 0x93;            // Timer/counter 3 reload high
+C51 COMPILER V9.59.0.0   C8051F360                                                         03/18/2026 20:25:07 PAGE 2   
+
+  56          sfr TMR3L           = 0x94;            // Timer/counter 3 low
+  57          sfr TMR3H           = 0x95;            // Timer/counter 3 high
+  58          sfr IDA0L           = 0x96;            // Current mode DAC0 low
+  59          sfr IDA0H           = 0x97;            // Current mode DAC0 high
+  60          sfr SCON0           = 0x98;            // UART0 control
+  61          sfr SBUF0           = 0x99;            // UART0 data buffer
+  62          sfr CPT1CN          = 0x9A;            // Comparator1 control
+  63          sfr CPT0CN          = 0x9B;            // Comparator0 control
+  64          sfr CPT1MD          = 0x9C;            // Comparator1 mode selection
+  65          sfr CPT0MD          = 0x9D;            // Comparator0 mode selection
+  66          sfr CPT1MX          = 0x9E;            // Comparator1 mux selection
+  67          sfr CPT0MX          = 0x9F;            // Comparator0 mux selection
+  68          sfr P2              = 0xA0;            // Port 2 latch
+  69          sfr SPI0CFG         = 0xA1;            // SPI0 configuration
+  70          sfr SPI0CKR         = 0xA2;            // SPI0 clock rate control
+  71          sfr SPI0DAT         = 0xA3;            // SPI0 data
+  72          sfr MAC0AL          = 0xA4;            // MAC0 A register low byte
+  73          sfr P0MDOUT         = 0xA4;            // Port 0 output mode configuration
+  74          sfr MAC0AH          = 0xA5;            // MAC0 A register high byte
+  75          sfr P1MDOUT         = 0xA5;            // Port 1 output mode configuration
+  76          sfr P2MDOUT         = 0xA6;            // Port 2 output mode configuration
+  77          sfr SFRPAGE         = 0xA7;            // SFR page select
+  78          sfr IE              = 0xA8;            // Interrupt enable
+  79          sfr PLL0DIV         = 0xA9;            // PLL divider
+  80          sfr EMI0CN          = 0xAA;            // External memory interface control
+  81          sfr FLSTAT          = 0xAC;            // Flash status
+  82          sfr OSCLCN          = 0xAD;            // Low-frequency oscillator control
+  83          sfr MAC0RNDL        = 0xAE;            // MAC0 rounding register low byte
+  84          sfr P4MDOUT         = 0xAE;            // Port 4 output mode configuration
+  85          sfr MAC0RNDH        = 0xAF;            // MAC0 rounding register high byte
+  86          sfr P3MDOUT         = 0xAF;            // Port 3 output mode configuration
+  87          sfr P3              = 0xB0;            // Port 3 latch
+  88          sfr P2MAT           = 0xB1;            // Port 2 match
+  89          sfr PLL0MUL         = 0xB1;            // PLL multiplier
+  90          sfr P2MASK          = 0xB2;            // Port 2 mask
+  91          sfr PLL0FLT         = 0xB2;            // PLL filter
+  92          sfr PLL0CN          = 0xB3;            // PLL control
+  93          sfr P4              = 0xB5;            // Port 4 latch
+  94          sfr FLSCL           = 0xB6;            // Flash scale
+  95          sfr OSCXCN          = 0xB6;            // External oscillator control
+  96          sfr FLKEY           = 0xB7;            // Flash lock and key
+  97          sfr OSCICN          = 0xB7;            // Internal oscillator control
+  98          sfr IP              = 0xB8;            // Interrupt priority
+  99          sfr IDA0CN          = 0xB9;            // Current mode DAC0 control
+ 100          sfr AMX0N           = 0xBA;            // AMUX0 negative channel select
+ 101          sfr AMX0P           = 0xBB;            // AMUX0 positive channel select
+ 102          sfr ADC0CF          = 0xBC;            // ADC0 configuration
+ 103          sfr ADC0L           = 0xBD;            // ADC0 data low
+ 104          sfr ADC0H           = 0xBE;            // ADC0 data high
+ 105          sfr OSCICL          = 0xBF;            // Internal oscillator calibration
+ 106          sfr SMB0CN          = 0xC0;            // SMBus0 control
+ 107          sfr SMB0CF          = 0xC1;            // SMBus0 configuration
+ 108          sfr SMB0DAT         = 0xC2;            // SMBus0 data
+ 109          sfr ADC0GTL         = 0xC3;            // ADC0 window greater than low byte
+ 110          sfr ADC0GTH         = 0xC4;            // ADC0 window greater than high byte
+ 111          sfr ADC0LTL         = 0xC5;            // ADC0 window less than low byte
+ 112          sfr ADC0LTH         = 0xC6;            // ADC0 window less than high byte
+ 113          sfr ONESHOT         = 0xC7;            // Flash oneshot timing
+ 114          sfr EMI0CF          = 0xC7;            // EMIF configuration
+ 115          sfr TMR2CN          = 0xC8;            // Timer/counter 2 control
+ 116          sfr CCH0TN          = 0xC9;            // Cache tuning
+ 117          sfr TMR2RLL         = 0xCA;            // Timer/counter 2 reload low
+C51 COMPILER V9.59.0.0   C8051F360                                                         03/18/2026 20:25:07 PAGE 3   
+
+ 118          sfr TMR2RLH         = 0xCB;            // Timer/counter 2 reload high
+ 119          sfr TMR2L           = 0xCC;            // Timer/counter 2 low
+ 120          sfr TMR2H           = 0xCD;            // Timer/counter 2 high
+ 121          sfr EIP1            = 0xCE;            // Extended interrupt priority 1
+ 122          sfr MAC0STA         = 0xCF;            // MAC0 status
+ 123          sfr EIP2            = 0xCF;            // Extended interrupt priority 2
+ 124          sfr PSW             = 0xD0;            // Program status word
+ 125          sfr REF0CN          = 0xD1;            // Voltage reference control
+ 126          sfr MAC0ACC0        = 0xD2;            // MAC0 accumulator byte 0
+ 127          sfr CCH0LC          = 0xD2;            // Cache lock
+ 128          sfr MAC0ACC1        = 0xD3;            // MAC0 accumulator byte 1
+ 129          sfr CCH0MA          = 0xD3;            // Cache miss accumulator
+ 130          sfr MAC0ACC2        = 0xD4;            // MAC0 accumulator byte 2
+ 131          sfr P0SKIP          = 0xD4;            // Port 0 skip
+ 132          sfr MAC0ACC3        = 0xD5;            // MAC0 accumulator byte 3
+ 133          sfr P1SKIP          = 0xD5;            // Port 1 skip
+ 134          sfr MAC0OVR         = 0xD6;            // MAC0 accumulator overflow byte
+ 135          sfr P2SKIP          = 0xD6;            // Port 2 skip
+ 136          sfr MAC0CF          = 0xD7;            // MAC0 configuration register
+ 137          sfr P3SKIP          = 0xD7;            // Port 3 skip
+ 138          sfr PCA0CN          = 0xD8;            // PCA0 control
+ 139          sfr PCA0MD          = 0xD9;            // PCA0 mode
+ 140          sfr PCA0CPM0        = 0xDA;            // PCA0 module 0 mode
+ 141          sfr PCA0CPM1        = 0xDB;            // PCA0 module 1 mode
+ 142          sfr PCA0CPM2        = 0xDC;            // PCA0 module 2 mode
+ 143          sfr PCA0CPM3        = 0xDD;            // PCA0 module 3 mode
+ 144          sfr PCA0CPM4        = 0xDE;            // PCA0 module 4 mode
+ 145          sfr PCA0CPM5        = 0xDF;            // PCA0 module 5 mode
+ 146          sfr ACC             = 0xE0;            // Accumulator
+ 147          sfr P1MAT           = 0xE1;            // Port 1 match
+ 148          sfr XBR0            = 0xE1;            // Port I/O crossbar control 0
+ 149          sfr P1MASK          = 0xE2;            // Port 1 mask
+ 150          sfr XBR1            = 0xE2;            // Port I/O crossbar control 1
+ 151          sfr IT01CF          = 0xE4;            // INT0/INT1 configuration
+ 152          sfr SFR0CN          = 0xE5;            // SFR page control
+ 153          sfr EIE1            = 0xE6;            // Extended interrupt enable 1
+ 154          sfr EIE2            = 0xE7;            // Extended interrupt enable 2
+ 155          sfr ADC0CN          = 0xE8;            // ADC0 control
+ 156          sfr PCA0CPL1        = 0xE9;            // PCA0 module 1 capture low
+ 157          sfr PCA0CPH1        = 0xEA;            // PCA0 module 1 capture high
+ 158          sfr PCA0CPL2        = 0xEB;            // PCA0 module 2 capture low
+ 159          sfr PCA0CPH2        = 0xEC;            // PCA0 module 2 capture high
+ 160          sfr PCA0CPL3        = 0xED;            // PCA0 module 3 capture low
+ 161          sfr PCA0CPH3        = 0xEE;            // PCA0 module 3 capture high
+ 162          sfr RSTSRC          = 0xEF;            // Reset source configuration/status
+ 163          sfr B               = 0xF0;            // B register
+ 164          sfr MAC0BL          = 0xF1;            // MAC0 B register low byte
+ 165          sfr P0MDIN          = 0xF1;            // Port 0 input mode configuration
+ 166          sfr MAC0BH          = 0xF2;            // MAC0 B register high byte
+ 167          sfr P1MDIN          = 0xF2;            // Port 1 input mode configuration
+ 168          sfr P0MAT           = 0xF3;            // Port 0 match
+ 169          sfr P2MDIN          = 0xF3;            // Port 2 input mode configuration
+ 170          sfr P0MASK          = 0xF4;            // Port 0 mask
+ 171          sfr P3MDIN          = 0xF4;            // Port 3 input mode configuration
+ 172          sfr PCA0CPL5        = 0xF5;            // PCA0 module 5 capture low
+ 173          sfr PCA0CPH5        = 0xF6;            // PCA0 module 5 capture high
+ 174          sfr EMI0TC          = 0xF7;            // EMIF timing control
+ 175          sfr SPI0CN          = 0xF8;            // SPI0 control
+ 176          sfr PCA0L           = 0xF9;            // PCA0 counter low
+ 177          sfr PCA0H           = 0xFA;            // PCA0 counter high
+ 178          sfr PCA0CPL0        = 0xFB;            // PCA0 module 0 capture low
+ 179          sfr PCA0CPH0        = 0xFC;            // PCA0 module 0 capture high
+C51 COMPILER V9.59.0.0   C8051F360                                                         03/18/2026 20:25:07 PAGE 4   
+
+ 180          sfr PCA0CPL4        = 0xFD;            // PCA0 module 4 capture low
+ 181          sfr PCA0CPH4        = 0xFE;            // PCA0 module 4 capture high
+ 182          sfr VDM0CN          = 0xFF;            // VDD monitor control
+ 183          
+ 184          //-----------------------------------------------------------------------------
+ 185          // Bit Definitions
+ 186          //-----------------------------------------------------------------------------
+ 187          
+ 188          // TCON 0x88
+ 189          sbit TF1       = 0x8F;                 // Timer 1 overflow flag
+ 190          sbit TR1       = 0x8E;                 // Timer 1 on/off control
+ 191          sbit TF0       = 0x8D;                 // Timer 0 overflow flag
+ 192          sbit TR0       = 0x8C;                 // Timer 0 on/off control
+ 193          sbit IE1       = 0x8B;                 // Ext. Interrupt 1 edge flag
+ 194          sbit IT1       = 0x8A;                 // Ext. Interrupt 1 type
+ 195          sbit IE0       = 0x89;                 // Ext. Interrupt 0 edge flag
+ 196          sbit IT0       = 0x88;                 // Ext. Interrupt 0 type
+ 197          
+ 198          // SCON0 0x98
+ 199          sbit S0MODE    = 0x9F;                 // UART0 mode
+ 200                                                 // Bit 6 Unused
+ 201          sbit MCE0      = 0x9D;                 // UART0 mce
+ 202          sbit REN0      = 0x9C;                 // UART0 RX enable
+ 203          sbit TB80      = 0x9B;                 // UART0 TX bit 8
+ 204          sbit RB80      = 0x9A;                 // UART0 RX bit 8
+ 205          sbit TI0       = 0x99;                 // UART0 TX interrupt flag
+ 206          sbit RI0       = 0x98;                 // UART0 RX interrupt flag
+ 207          
+ 208          // IE 0xA8
+ 209          sbit EA        = 0xAF;                 // Global interrupt enable
+ 210          sbit ESPI0     = 0xAE;                 // SPI0 interrupt enable
+ 211          sbit ET2       = 0xAD;                 // Timer 2 interrupt enable
+ 212          sbit ES0       = 0xAC;                 // UART0 interrupt enable
+ 213          sbit ET1       = 0xAB;                 // Timer 1 interrupt enable
+ 214          sbit EX1       = 0xAA;                 // External interrupt 1 enable
+ 215          sbit ET0       = 0xA9;                 // Timer 0 interrupt enable
+ 216          sbit EX0       = 0xA8;                 // External interrupt 0 enable
+ 217          
+ 218          // IP 0xB8
+ 219                                                 // Bit 7 Unused
+ 220          sbit PSPI0     = 0xBE;                 // SPI0 priority
+ 221          sbit PT2       = 0xBD;                 // Timer 2 priority
+ 222          sbit PS0       = 0xBC;                 // UART0 priority
+ 223          sbit PT1       = 0xBB;                 // Timer 1 priority
+ 224          sbit PX1       = 0xBA;                 // External interrupt 1 priority
+ 225          sbit PT0       = 0xB9;                 // Timer 0 priority
+ 226          sbit PX0       = 0xB8;                 // External interrupt 0 priority
+ 227          
+ 228          // SMB0CN 0xC0
+ 229          sbit MASTER    = 0xC7;                 // SMBus0 master/slave
+ 230          sbit TXMODE    = 0xC6;                 // SMBus0 transmit mode
+ 231          sbit STA       = 0xC5;                 // SMBus0 start flag
+ 232          sbit STO       = 0xC4;                 // SMBus0 stop flag
+ 233          sbit ACKRQ     = 0xC3;                 // SMBus0 acknowledge request
+ 234          sbit ARBLOST   = 0xC2;                 // SMBus0 arbitration lost
+ 235          sbit ACK       = 0xC1;                 // SMBus0 acknowledge flag
+ 236          sbit SI        = 0xC0;                 // SMBus0 interrupt pending flag
+ 237          
+ 238          // TMR2CN 0xC8
+ 239          sbit TF2H      = 0xCF;                 // Timer 2 high byte overflow flag
+ 240          sbit TF2L      = 0xCE;                 // Timer 2 low byte overflow flag
+ 241          sbit TF2LEN    = 0xCD;                 // Timer 2 low byte interrupt enable
+C51 COMPILER V9.59.0.0   C8051F360                                                         03/18/2026 20:25:07 PAGE 5   
+
+ 242          sbit TF2CEN    = 0xCC;                 // Timer 2 capture enable
+ 243          sbit T2SPLIT   = 0xCB;                 // Timer 2 split mode enable
+ 244          sbit TR2       = 0xCA;                 // Timer 2 on/off control
+ 245                                                 // Bit 1 Unused
+ 246          sbit T2XCLK    = 0xC8;                 // Timer 2 external clock select
+ 247          
+ 248          // PSW 0xD0
+ 249          sbit CY        = 0xD7;                 // Carry flag
+ 250          sbit AC        = 0xD6;                 // Auxiliary carry flag
+ 251          sbit F0        = 0xD5;                 // User flag 0
+ 252          sbit RS1       = 0xD4;                 // Register bank select 1
+ 253          sbit RS0       = 0xD3;                 // Register bank select 0
+ 254          sbit OV        = 0xD2;                 // Overflow flag
+ 255          sbit F1        = 0xD1;                 // User flag 1
+ 256          sbit P         = 0xD0;                 // Accumulator parity flag
+ 257          
+ 258          // PCA0CN 0xD8
+ 259          sbit CF        = 0xDF;                 // PCA0 counter overflow flag
+ 260          sbit CR        = 0xDE;                 // PCA0 counter run control bit
+ 261          sbit CCF5      = 0xDD;                 // PCA0 module 5 interrupt flag
+ 262          sbit CCF4      = 0xDC;                 // PCA0 module 4 interrupt flag
+ 263          sbit CCF3      = 0xDB;                 // PCA0 module 3 interrupt flag
+ 264          sbit CCF2      = 0xDA;                 // PCA0 module 2 interrupt flag
+ 265          sbit CCF1      = 0xD9;                 // PCA0 module 1 interrupt flag
+ 266          sbit CCF0      = 0xD8;                 // PCA0 module 0 interrupt flag
+ 267          
+ 268          // ADC0CN 0xE8
+ 269          sbit AD0EN     = 0xEF;                 // ADC0 enable
+ 270          sbit AD0TM     = 0xEE;                 // ADC0 track mode
+ 271          sbit AD0INT    = 0xED;                 // ADC0 conv. complete interrupt flag
+ 272          sbit AD0BUSY   = 0xEC;                 // ADC0 busy flag
+ 273          sbit AD0WINT   = 0xEB;                 // ADC0 window compare interrupt flag
+ 274          sbit AD0CM2    = 0xEA;                 // ADC0 conversion mode select 2
+ 275          sbit AD0CM1    = 0xE9;                 // ADC0 conversion mode select 1
+ 276          sbit AD0CM0    = 0xE8;                 // ADC0 conversion mode select 0
+ 277          
+ 278          // SPI0CN 0xF8
+ 279          sbit SPIF      = 0xFF;                 // SPI0 interrupt flag
+ 280          sbit WCOL      = 0xFE;                 // SPI0 write collision flag
+ 281          sbit MODF      = 0xFD;                 // SPI0 mode fault flag
+ 282          sbit RXOVRN    = 0xFC;                 // SPI0 RX overrun flag
+ 283          sbit NSSMD1    = 0xFB;                 // SPI0 slave select mode 1
+ 284          sbit NSSMD0    = 0xFA;                 // SPI0 slave select mode 0
+ 285          sbit TXBMT     = 0xF9;                 // SPI0 TX buffer empty flag
+ 286          sbit SPIEN     = 0xF8;                 // SPI0 SPI0 enable
+ 287          
+ 288          //-----------------------------------------------------------------------------
+ 289          // SFR Page Definitions
+ 290          //-----------------------------------------------------------------------------
+ 291          
+ 292          #define CONFIG_PAGE       0x0F         // SYSTEM AND PORT CONFIGURATION PAGE
+ 293          #define LEGACY_PAGE       0x00         // LEGACY SFR PAGE
+ 294          #define TIMER01_PAGE      0x00         // TIMER 0 AND TIMER 1
+ 295          #define CPT0_PAGE         0x00         // COMPARATOR 0
+ 296          #define CPT1_PAGE         0x00         // COMPARATOR 1
+ 297          #define UART0_PAGE        0x00         // UART 0
+ 298          #define SPI0_PAGE         0x00         // SPI 0
+ 299          #define EMI0_PAGE         0x0F         // EXTERNAL MEMORY INTERFACE
+ 300          #define ADC0_PAGE         0x00         // ADC 0
+ 301          #define SMB0_PAGE         0x00         // SMBUS 0
+ 302          #define TMR2_PAGE         0x00         // TIMER 2
+ 303          #define TMR3_PAGE         0x00         // TIMER 3
+C51 COMPILER V9.59.0.0   C8051F360                                                         03/18/2026 20:25:07 PAGE 6   
+
+ 304          #define DAC0_PAGE         0x00         // DAC 0
+ 305          #define PCA0_PAGE         0x00         // PCA 0
+ 306          #define PLL0_PAGE         0x0F         // PLL 0
+ 307          #define MAC0_PAGE         0x00         // MAC 0
+ 308          #define MATCH_PAGE        0x00         // PORT0, PORT1, PORT2 MATCH
+ 309          
+ 310          //-----------------------------------------------------------------------------
+ 311          // Interrupt Priorities
+ 312          //-----------------------------------------------------------------------------
+ 313          
+ 314          #define INTERRUPT_INT0             0   // External Interrupt 0
+ 315          #define INTERRUPT_TIMER0           1   // Timer0 Overflow
+ 316          #define INTERRUPT_INT1             2   // External Interrupt 1
+ 317          #define INTERRUPT_TIMER1           3   // Timer1 Overflow
+ 318          #define INTERRUPT_UART0            4   // Serial Port 0
+ 319          #define INTERRUPT_TIMER2           5   // Timer2 Overflow
+ 320          #define INTERRUPT_SPI0             6   // Serial Peripheral Interface 0
+ 321          #define INTERRUPT_SMBUS0           7   // SMBus0 Interface
+ 322          #define INTERRUPT_ADC0_WINDOW      8   // ADC0 Window Comparison
+ 323          #define INTERRUPT_ADC0_EOC         9   // ADC0 End Of Conversion
+ 324          #define INTERRUPT_PCA0             10  // PCA0 Peripheral
+ 325          #define INTERRUPT_COMPARATOR0      11  // Comparator0
+ 326          #define INTERRUPT_COMPARATOR1      12  // Comparator1
+ 327          #define INTERRUPT_TIMER3           13  // Timer3 Overflow
+ 328          #define INTERRUPT_PORT_MATCH       14  // Port Match
+ 329          
+ 330          //-----------------------------------------------------------------------------
+ 331          // Header File Preprocessor Directive
+ 332          //-----------------------------------------------------------------------------
+ 333          
+ 334          #endif                                 // #define C8051F360_H
+ 335          
+ 336          //-----------------------------------------------------------------------------
+ 337          // End Of File
+ 338          //-----------------------------------------------------------------------------
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
