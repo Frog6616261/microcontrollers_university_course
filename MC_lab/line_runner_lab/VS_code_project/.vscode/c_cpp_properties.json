@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "name": "sdcc",
+      "includePath": [
+        "${workspaceFolder}/include",
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/mcu",
+        "${workspaceFolder}/drivers/time",
+        "${workspaceFolder}/drivers/uart"
+      ],
+      "compilerPath": "/usr/bin/sdcc",
+      "intelliSenseMode": "gcc-x64",
+      "cStandard": "c11"
+    }
+  ],
+  "version": 4
+}
